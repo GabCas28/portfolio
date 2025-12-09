@@ -1,0 +1,56 @@
+<nav class="navbar" [class.navbar--scrolled]="isScrolled">
+    <div class="navbar__container">
+        <!-- Logo -->
+        <a routerLink="/" class="navbar__logo" (click)="closeMobileMenu()">
+            <span class="navbar__logo-text gradient-text">&lt;GC/&gt;</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <ul class="navbar__links">
+            @for (link of navLinks; track link.path) {
+            <li>
+                <a [routerLink]="link.path" routerLinkActive="navbar__link--active"
+                    [routerLinkActiveOptions]="{exact: link.exact}" class="navbar__link">
+                    {{ link.label }}
+                </a>
+            </li>
+            }
+        </ul>
+
+        <!-- Contact Button -->
+        <a href="mailto:contact@gabrielcastro.dev" class="navbar__contact">
+            <span>Let's Talk</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button class="navbar__hamburger" [class.navbar__hamburger--open]="isMobileMenuOpen"
+            (click)="toggleMobileMenu()" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="navbar__mobile" [class.navbar__mobile--open]="isMobileMenuOpen">
+        <ul class="navbar__mobile-links">
+            @for (link of navLinks; track link.path) {
+            <li>
+                <a [routerLink]="link.path" routerLinkActive="navbar__mobile-link--active"
+                    [routerLinkActiveOptions]="{exact: link.exact}" class="navbar__mobile-link"
+                    (click)="closeMobileMenu()">
+                    {{ link.label }}
+                </a>
+            </li>
+            }
+            <li>
+                <a href="mailto:contact@gabrielcastro.dev" class="navbar__mobile-link" (click)="closeMobileMenu()">
+                    Contact
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
